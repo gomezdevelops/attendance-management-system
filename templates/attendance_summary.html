@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+Today's Attendance Summary — {{ today }}
+</h2>
+
+<table>
+
+<tr>
+<th>Subject</th>
+<th>Present</th>
+<th>Absent</th>
+<th>Total</th>
+<th>Attendance %</th>
+</tr>
+
+{% for row in records %}
+
+<tr>
+
+<td>
+{{ row[0] }}
+</td>
+
+<td class="status-present">
+{{ row[1] }}
+</td>
+
+<td class="status-absent">
+{{ row[2] }}
+</td>
+
+<td>
+{{ row[3] }}
+</td>
+
+<td>
+
+{% if row[3] == 0 %}
+
+0%
+
+{% else %}
+
+{% set percentage = ((row[1] / row[3]) * 100) | round(2) %}
+
+{% if percentage >= 75 %}
+
+<span class="status-present">
+{{ percentage }}%
+</span>
+
+{% else %}
+
+<span class="status-absent">
+{{ percentage }}%
+</span>
+
+{% endif %}
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/dashboard">
+
+<button class="secondary">
+Back to Dashboard
+</button>
+
+</a>
+
+{% endblock %}

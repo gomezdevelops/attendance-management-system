@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Send Attendance Report to Student</h2>
+
+<form method="POST">
+
+<label>Select Student</label>
+
+<select name="student_id" required>
+
+{% for student in students %}
+
+<option value="{{ student[0] }}">
+{{ student[0] }} — {{ student[1] }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<button type="submit">
+Send Report via Email
+</button>
+
+</form>
+
+<a href="/dashboard">
+<button class="secondary">
+Back to Dashboard
+</button>
+</a>
+
+{% endblock %}

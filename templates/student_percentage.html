@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>My Attendance Percentage</h2>
+
+<table>
+
+<tr>
+<th>Subject</th>
+<th>Attended</th>
+<th>Total</th>
+<th>Percentage</th>
+<th>Status</th>
+</tr>
+
+{% for row in records %}
+
+<tr>
+
+<td>{{ row[0] }}</td>
+
+<td>{{ row[1] }}</td>
+
+<td>{{ row[2] }}</td>
+
+<td>
+
+{% if row[3] >= 75 %}
+<span class="status-present">
+{{ row[3] }}%
+</span>
+{% else %}
+<span class="status-absent">
+{{ row[3] }}%
+</span>
+{% endif %}
+
+</td>
+
+<td>
+
+{% if row[4] %}
+<span class="warning">
+{{ row[4] }}
+</span>
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/student_dashboard">
+<button class="secondary">
+Back to Dashboard
+</button>
+</a>
+
+{% endblock %}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Smart Attendance System</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+
+<body>
+
+<!-- Ambient background blobs -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<nav class="navbar">
+
+  <a href="/" class="nav-brand">
+    <span class="brand-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="brand-text">AttendIQ</span>
+  </a>
+
+  <div class="nav-links">
+
+    {% if session.get("admin") %}
+
+    <a href="/dashboard" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+      Dashboard
+    </a>
+
+    <a href="/attendance" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+      Attendance
+    </a>
+
+    <a href="/view_attendance" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Report
+    </a>
+
+    <a href="/attendance_percentage" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Percentage
+    </a>
+
+    <a href="/attendance_summary" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Summary
+    </a>
+
+    <a href="/logout" class="nav-link nav-logout">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Logout
+    </a>
+
+    {% elif session.get("student") %}
+
+    <a href="/student_dashboard" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+      Dashboard
+    </a>
+
+    <a href="/my_percentage" class="nav-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      My Attendance
+    </a>
+
+    <a href="/student_logout" class="nav-link nav-logout">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Logout
+    </a>
+
+    {% endif %}
+
+  </div>
+
+  <!-- Mobile hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-inner">
+    {% if session.get("admin") %}
+    <a href="/dashboard" class="drawer-link">Dashboard</a>
+    <a href="/attendance" class="drawer-link">Attendance</a>
+    <a href="/view_attendance" class="drawer-link">Report</a>
+    <a href="/attendance_percentage" class="drawer-link">Percentage</a>
+    <a href="/attendance_summary" class="drawer-link">Summary</a>
+    <a href="/logout" class="drawer-link drawer-logout">Logout</a>
+    {% elif session.get("student") %}
+    <a href="/student_dashboard" class="drawer-link">Dashboard</a>
+    <a href="/my_percentage" class="drawer-link">My Attendance</a>
+    <a href="/student_logout" class="drawer-link drawer-logout">Logout</a>
+    {% endif %}
+  </div>
+</div>
+
+<main class="main-wrap">
+
+  <div class="container">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="flash">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  <span class="footer-brand">AttendIQ</span>
+  <span class="footer-sep">·</span>
+  <span>Smart Attendance System © 2026</span>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  // close drawer when a link is clicked
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

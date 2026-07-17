@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dash-header">
+  <div class="dash-greeting">
+    <span class="dash-eyebrow">Admin Panel</span>
+    <h2>Welcome back 👋</h2>
+    <p>Manage students, subjects, attendance and reports from here.</p>
+  </div>
+  <div class="dash-meta">
+    <div class="dash-meta-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span id="dash-time"></span>
+    </div>
+  </div>
+</div>
+
+<div class="dash-section-label">People &amp; Subjects</div>
+
+<div class="dash-list">
+
+  <a href="/register_student" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(94,234,212,0.1);color:#5eead4">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M20 21a8 8 0 10-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 11v6M16 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Register Student</div>
+      <div class="dash-row-desc">Add a new student to the system with their details and credentials</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+  <a href="/delete_student" class="dash-row">
+
+    <div class="dash-row-icon"
+    style="background:rgba(248,113,113,0.1);color:#f87171">
+
+        <svg width="20" height="20"
+        viewBox="0 0 24 24" fill="none">
+
+        <path d="M3 6h18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"/>
+
+        <path d="M8 6V4h8v2"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"/>
+
+        <path d="M6 6l1 14h10l1-14"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"/>
+
+        </svg>
+
+    </div>
+
+    <div class="dash-row-body">
+
+        <div class="dash-row-title">
+        Delete Student
+        </div>
+
+        <div class="dash-row-desc">
+        Remove a student and all related attendance data safely
+        </div>
+
+    </div>
+
+    <div class="dash-row-arrow">
+
+        <svg width="16" height="16"
+        viewBox="0 0 24 24" fill="none">
+
+        <path d="M9 18l6-6-6-6"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+        </svg>
+
+    </div>
+
+</a>
+
+  <a href="/subjects" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(96,165,250,0.1);color:#60a5fa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="2"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Manage Subjects</div>
+      <div class="dash-row-desc">Create, edit or remove subjects assigned to classes and semesters</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+</div>
+
+<div class="dash-section-label" style="margin-top:28px">Attendance</div>
+
+<div class="dash-list">
+
+  <a href="/attendance" class="dash-row dash-row-accent">
+    <div class="dash-row-icon" style="background:rgba(94,234,212,0.15);color:#5eead4">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3 5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Start Attendance <span class="dash-badge">Live</span></div>
+      <div class="dash-row-desc">Begin marking attendance for today's class session in real time</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <a href="/view_attendance" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(167,139,250,0.1);color:#a78bfa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">View Attendance Report</div>
+      <div class="dash-row-desc">Browse full attendance logs filtered by subject, student or date range</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <a href="/attendance_percentage" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(74,222,128,0.1);color:#4ade80">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">View Attendance Percentage</div>
+      <div class="dash-row-desc">See each student's attendance percentage across all subjects</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <a href="/attendance_summary" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(251,191,36,0.1);color:#fbbf24">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Attendance Summary</div>
+      <div class="dash-row-desc">High-level overview of class-wise and subject-wise attendance patterns</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+</div>
+
+<div class="dash-section-label" style="margin-top:28px">Export &amp; Communication</div>
+
+<div class="dash-list">
+
+  <a href="/export_excel" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(74,222,128,0.1);color:#4ade80">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/><path d="M8 13l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Export to Excel</div>
+      <div class="dash-row-desc">Download a full attendance spreadsheet for record-keeping or submission</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <a href="/send_student_report" class="dash-row">
+    <div class="dash-row-icon" style="background:rgba(96,165,250,0.1);color:#60a5fa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title">Send Student Report</div>
+      <div class="dash-row-desc">Email attendance reports directly to students or their guardians</div>
+    </div>
+    <div class="dash-row-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+</div>
+
+<div class="dash-list" style="margin-top:28px">
+  <a href="/logout" class="dash-row dash-row-danger">
+    <div class="dash-row-icon" style="background:rgba(248,113,113,0.1);color:#f87171">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="dash-row-body">
+      <div class="dash-row-title" style="color:#f87171">Logout</div>
+      <div class="dash-row-desc">End your admin session securely</div>
+    </div>
+    <div class="dash-row-arrow" style="color:#f87171">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+</div>
+
+<script>
+  function updateTime() {
+    const el = document.getElementById('dash-time');
+    if (!el) return;
+    const now = new Date();
+    el.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' · ' +
+      now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  updateTime();
+  setInterval(updateTime, 30000);
+</script>
+
+{% endblock %}

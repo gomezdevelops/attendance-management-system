@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Attendance Report</h2>
+
+<table>
+
+<tr>
+<th>Attendance ID</th>
+<th>Student ID</th>
+<th>Name</th>
+<th>Subject</th>
+<th>Date</th>
+<th>Hour</th>
+<th>Status</th>
+</tr>
+
+{% for row in records %}
+
+<tr>
+
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+<td>{{ row[3] }}</td>
+<td>{{ row[4] }}</td>
+<td>{{ row[5] }}</td>
+
+<td>
+{% if row[6] == "Present" %}
+<span class="status-present">
+Present
+</span>
+{% else %}
+<span class="status-absent">
+Absent
+</span>
+{% endif %}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/dashboard">
+<button class="secondary">
+Back to Dashboard
+</button>
+</a>
+
+{% endblock %}

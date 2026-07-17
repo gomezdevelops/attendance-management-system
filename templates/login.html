@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.login-card {
+  max-width: 440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.login-accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #5eead4, #60a5fa, #a78bfa, #5eead4);
+  background-size: 300% 100%;
+  border-radius: 99px 99px 0 0;
+  animation: bar-slide 4s linear infinite;
+  margin-bottom: 32px;
+}
+
+@keyframes bar-slide {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 300% 0%; }
+}
+
+.login-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.login-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(6,182,212,0.22), transparent 65%);
+  top: -120px; left: -120px;
+  animation: orb1 16s ease-in-out infinite alternate;
+}
+
+.login-orb-2 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 65%);
+  bottom: -100px; right: -100px;
+  animation: orb2 20s ease-in-out infinite alternate;
+}
+
+.login-orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(20,184,166,0.14), transparent 65%);
+  top: 50%; left: 55%;
+  animation: orb3 24s ease-in-out infinite alternate;
+}
+
+@keyframes orb1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(50px, 60px) scale(1.12); }
+}
+@keyframes orb2 {
+  from { transform: translate(0, 0) scale(1.05); }
+  to   { transform: translate(-40px, -50px) scale(0.92); }
+}
+@keyframes orb3 {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to   { transform: translate(-42%, -62%) scale(1.18); }
+}
+
+.login-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: #f87171;
+  margin-bottom: 14px;
+  animation: badge-pop 0.5s cubic-bezier(.22,1,.36,1) 0.1s both;
+}
+
+@keyframes badge-pop {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: #f87171;
+  border-radius: 50%;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.6); }
+}
+
+.login-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+  color: #f1f5f9;
+  margin-bottom: 4px;
+  animation: slide-up 0.6s cubic-bezier(.22,1,.36,1) 0.15s both;
+}
+
+.login-subtext {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 32px;
+  animation: slide-up 0.6s cubic-bezier(.22,1,.36,1) 0.2s both;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-field {
+  margin-bottom: 18px;
+  animation: slide-up 0.6s cubic-bezier(.22,1,.36,1) both;
+}
+
+.login-field:nth-child(1) { animation-delay: 0.25s; }
+.login-field:nth-child(2) { animation-delay: 0.32s; }
+
+.login-field label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.field-wrap { position: relative; }
+
+.field-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #334155;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 13px 14px 13px 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+  color: #f1f5f9;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+  margin-top: 0;
+}
+
+.login-field input::placeholder { color: #334155; }
+
+.login-field input:focus {
+  outline: none;
+  border-color: rgba(94, 234, 212, 0.55);
+  background: rgba(94, 234, 212, 0.045);
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.12);
+}
+
+.field-wrap:focus-within .field-icon { color: #5eead4; }
+
+.login-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #5eead4, #22d3ee, #60a5fa);
+  background-size: 250% 250%;
+  color: #030c18;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: btn-gradient 5s ease infinite, slide-up 0.6s cubic-bezier(.22,1,.36,1) 0.38s both;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes btn-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.login-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(94, 234, 212, 0.35);
+}
+
+.login-submit:hover::before {
+  transform: translateX(100%);
+  transition: transform 0.55s ease;
+}
+
+.login-submit:active { transform: translateY(0); box-shadow: none; }
+
+.login-switch {
+  text-align: center;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+  color: #475569;
+  animation: slide-up 0.6s cubic-bezier(.22,1,.36,1) 0.45s both;
+}
+
+.login-switch a {
+  color: #5eead4;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s, color 0.2s;
+}
+
+.login-switch a:hover { color: #99f6e4; gap: 8px; }
+</style>
+
+<div class="login-orb login-orb-1"></div>
+<div class="login-orb login-orb-2"></div>
+<div class="login-orb login-orb-3"></div>
+
+<div class="login-card">
+
+  <div class="login-accent-bar"></div>
+
+  <div class="login-role-badge">
+    <div class="badge-dot"></div>
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    Admin Access
+  </div>
+
+  <div class="login-heading">Welcome back</div>
+  <div class="login-subtext">Sign in to manage attendance and reports</div>
+
+  <form method="POST">
+
+    <div class="login-field">
+      <label for="username">Username</label>
+      <div class="field-wrap">
+        <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M20 21a8 8 0 10-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="username">
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label for="password">Password</label>
+      <div class="field-wrap">
+        <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+      </div>
+    </div>
+
+    <button type="submit" class="login-submit">Sign In as Admin</button>
+
+  </form>
+
+  <div class="login-switch">
+    Not an admin?
+    <a href="/student_login">
+      Go to Student Login
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}

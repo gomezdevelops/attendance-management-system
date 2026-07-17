@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Manage Subjects</h2>
+
+<form method="POST">
+
+<label>Subject ID</label>
+<input type="text" name="subject_id" required>
+
+<label>Subject Name</label>
+<input type="text" name="subject_name" required>
+
+<label>Department</label>
+<input type="text" name="department" required>
+
+<label>Semester</label>
+<input type="number" name="semester" required>
+
+<button type="submit">
+Add Subject
+</button>
+
+</form>
+
+<h2 style="margin-top:30px;">
+Subject List
+</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Department</th>
+<th>Semester</th>
+<th>Action</th>
+</tr>
+
+{% for subject in subjects %}
+
+<tr>
+
+<td>{{ subject[0] }}</td>
+<td>{{ subject[1] }}</td>
+<td>{{ subject[2] }}</td>
+<td>{{ subject[3] }}</td>
+
+<td>
+
+<a href="/delete_subject/{{ subject[0] }}"
+onclick="return confirm('Are you sure you want to delete this subject?')">
+    <button class="danger">
+        Delete
+    </button>
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/dashboard">
+<button class="secondary">
+Back to Dashboard
+</button>
+</a>
+
+{% endblock %}
