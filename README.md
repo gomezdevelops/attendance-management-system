@@ -1,128 +1,106 @@
-# 🎓 Smart Attendance and Monitoring System using Face Recognition
+<div align="center">
 
-> A modern web-based attendance management system that automates classroom attendance using real-time facial recognition, role-based authentication, attendance analytics, and automated email notifications.
+# 🎓 Smart Attendance and Monitoring System
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![Flask](https://img.shields.io/badge/Flask-3.x-black?logo=flask)
-![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv)
-![SQLite](https://img.shields.io/badge/Database-SQLite-blue?logo=sqlite)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+### Real-time facial recognition attendance for the modern classroom
+
+A web-based attendance management system that replaces manual roll calls with automated facial recognition, role-based authentication, attendance analytics, and automated email notifications.
+
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.x-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
+[![SQLite](https://img.shields.io/badge/Database-SQLite-07405E?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![License: Educational](https://img.shields.io/badge/License-Educational-yellow.svg)](#license)
+
+[Overview](#-overview) • [Features](#-key-features) • [Architecture](#-system-architecture) • [Getting Started](#-getting-started) • [Roadmap](#-future-enhancements)
+
+</div>
 
 ---
 
 ## 📖 Overview
 
-The **Smart Attendance and Monitoring System using Face Recognition** is a web-based application developed as a **Bachelor of Computer Applications (BCA) Major Project**.
+**Smart Attendance and Monitoring System** is a full-stack web application built as a Bachelor of Computer Applications (BCA) major project. It automates classroom attendance using real-time facial recognition, eliminating manual roll calls and proxy attendance.
 
-The system replaces traditional attendance methods with an automated facial recognition solution, reducing manual effort, preventing proxy attendance, and providing administrators with comprehensive attendance reports and monitoring tools.
+Admins register students, manage subjects, and run live attendance sessions where the system identifies students through a webcam feed and logs attendance automatically. Students log in to a dedicated portal to track their attendance percentage per subject, and the system proactively emails students who fall below the required threshold.
 
-Students can securely log in to monitor their attendance percentage, while administrators can manage attendance sessions, generate reports, and send automated email notifications.
+**Why it matters:**
+- ⏱️ Cuts attendance-taking time from minutes to seconds
+- 🚫 Prevents proxy attendance ("buddy punching") through face verification
+- 📊 Gives administrators real-time visibility into attendance trends
+- 📬 Automatically flags and notifies at-risk students, no manual tracking required
 
 ---
 
 ## ✨ Key Features
 
 ### 👨‍💼 Admin Portal
-
-- Secure authentication
-- Student management
-- Subject management
-- Face registration
-- Attendance session management
-- Attendance report generation
-- Attendance analytics
-- Export reports (CSV / Excel)
-- Send low attendance warning emails
-- Send absence notifications
-
----
+| Feature | Description |
+|---|---|
+| Secure Authentication | Session-based admin login |
+| Student Management | Add, edit, and remove student records |
+| Subject Management | Create and organize subjects/classes |
+| Face Registration | Capture and enroll student face data |
+| Attendance Sessions | Start/stop live recognition sessions per class |
+| Reports & Analytics | Generate attendance summaries and trends |
+| Data Export | Export attendance to CSV / Excel |
+| Email Alerts | Send low-attendance warnings and absence notices |
 
 ### 👨‍🎓 Student Portal
+- Secure roll-number based login
+- View overall and subject-wise attendance percentage
+- Track real-time attendance status
 
-- Secure login
-- View attendance percentage
-- View subject-wise attendance
-- Monitor attendance status
-
----
-
-### 🤖 Face Recognition
-
-- Real-time face detection
-- Face encoding generation
-- Face matching using Deep Learning
-- Automatic attendance marking
-- Duplicate attendance prevention
-
----
+### 🤖 Face Recognition Engine
+- Real-time face detection via webcam
+- Deep-learning-based face encoding and matching
+- Automatic attendance marking on match
+- Duplicate-entry prevention within the same session
 
 ### 📧 Notification System
-
 - Automated absence emails
-- Low attendance (<75%) warning emails
-- Email activity logging
+- Low-attendance (**< 75%**) warning emails
+- Full email activity logging for audit purposes
 
 ---
 
 ## 🏗 System Architecture
 
-The application follows a layered architecture.
-
 ```
-Presentation Layer
-        │
-        ▼
-HTML • CSS • JavaScript
-        │
-        ▼
-Flask Web Application
-        │
- ┌──────┼─────────┐
- │      │         │
- ▼      ▼         ▼
-Authentication
-Attendance
-Reports
-Email Service
-Face Recognition
-        │
-        ▼
-SQLite Database
+┌─────────────────────────────────────────┐
+│           Presentation Layer             │
+│      HTML5 • CSS3 • JavaScript • BS      │
+└───────────────────┬───────────────────────┘
+                     │
+┌─────────────────────────────────────────┐
+│           Flask Web Application          │
+├───────────┬───────────┬─────────┬───────┤
+│   Auth    │Attendance │ Reports │ Email │
+│  Service  │  Service  │ Service │Service│
+└───────────┴───────────┴─────────┴───────┘
+                     │
+┌─────────────────────────────────────────┐
+│        Face Recognition Engine           │
+│      OpenCV • face_recognition • NumPy   │
+└───────────────────┬───────────────────────┘
+                     │
+┌─────────────────────────────────────────┐
+│           SQLite Database                │
+└─────────────────────────────────────────┘
 ```
 
 ---
 
 ## 🛠 Technology Stack
 
-### Backend
-
-- Python
-- Flask
-
-### Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-- Bootstrap
-
-### Computer Vision
-
-- OpenCV
-- face_recognition
-- NumPy
-
-### Database
-
-- SQLite
-
-### Reporting
-
-- Pandas
-
-### Email Service
-
-- Gmail SMTP
+| Layer | Technologies |
+|---|---|
+| **Backend** | Python, Flask |
+| **Frontend** | HTML5, CSS3, JavaScript, Bootstrap |
+| **Computer Vision** | OpenCV, `face_recognition`, NumPy |
+| **Database** | SQLite |
+| **Reporting** | Pandas |
+| **Email Service** | Gmail SMTP |
 
 ---
 
@@ -130,160 +108,130 @@ SQLite Database
 
 ```text
 smart-attendance-system/
-
-├── app.py
-├── config.py
-├── requirements.txt
+├── app.py                 # Application entry point
+├── config.py               # App configuration & environment settings
+├── requirements.txt         # Python dependencies
 │
-├── database/
-├── dataset/
-├── logs/
+├── database/                # SQLite database files
+├── dataset/                  # Captured face image data
+├── logs/                       # Application & email logs
 │
-├── models/
-├── routes/
-├── services/
-├── utils/
+├── models/                     # Data models / ORM schemas
+├── routes/                      # Flask route handlers (blueprints)
+├── services/                     # Business logic (auth, attendance, email, face recognition)
+├── utils/                          # Shared helper functions
 │
-├── templates/
-└── static/
+├── templates/                       # Jinja2 HTML templates
+└── static/                           # CSS, JS, images
 ```
 
 ---
 
 ## 📊 Database Design
 
-The system consists of the following primary entities:
+The system is built around six core entities:
 
-- Admin
-- Students
-- Subjects
-- Attendance
-- Face Encodings
-- Email Logs
+| Entity | Purpose |
+|---|---|
+| **Admin** | Administrator credentials and access control |
+| **Students** | Student profiles and roll numbers |
+| **Subjects** | Course/subject definitions |
+| **Attendance** | Daily attendance records per student/subject |
+| **Face Encodings** | Stored facial embeddings for recognition |
+| **Email Logs** | History of sent notifications |
 
 ---
 
 ## 🔄 System Workflow
 
-1. Administrator logs into the system.
-2. Student information is registered.
-3. Facial images are captured.
-4. Face encodings are generated.
-5. Administrator starts an attendance session.
-6. Webcam captures live faces.
-7. Students are identified using facial recognition.
-8. Attendance is automatically recorded.
-9. Daily reports are generated.
-10. Email notifications are sent for absences and low attendance.
-11. Students log in to monitor their attendance.
+1. Administrator logs into the system
+2. Student information is registered
+3. Facial images are captured for enrollment
+4. Face encodings are generated and stored
+5. Administrator starts an attendance session for a subject
+6. Webcam captures live video of the classroom
+7. Students are identified in real time via facial recognition
+8. Attendance is automatically recorded (duplicates prevented)
+9. Daily and periodic reports are generated
+10. Automated emails are sent for absences and low attendance
+11. Students log in anytime to monitor their attendance status
 
 ---
 
 ## 🔐 Authentication
 
-The application supports **role-based authentication**.
+The application uses **role-based authentication** with two distinct portals:
 
-### Administrator
+| Role | Credentials |
+|---|---|
+| **Administrator** | Username + Password |
+| **Student** | Roll Number + Password |
 
-- Username
-- Password
-
-### Student
-
-- Roll Number
-- Password
-
-Passwords are securely stored using password hashing.
-
----
-
-## 📈 Future Enhancements
-
-- Mobile application support
-- Cloud deployment
-- Multi-classroom attendance
-- QR code attendance backup
-- Face mask detection
-- AI-powered attendance analytics
-- Multi-factor authentication
-- REST API integration
+All passwords are securely stored using password hashing. Plaintext credentials are never persisted.
 
 ---
 
 ## 🚀 Getting Started
 
-### Clone the repository
+### Prerequisites
+- Python 3.11+
+- A working webcam
+- Gmail account (for SMTP email notifications)
 
+### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/smart-attendance-system.git
+git clone https://github.com/gomezdevelops/attendance-management-system.git
+cd attendance-management-system
 ```
 
-### Navigate into the project
-
-```bash
-cd smart-attendance-system
-```
-
-### Create Virtual Environment
-
+### 2. Create and activate a virtual environment
 ```bash
 python -m venv venv
-```
 
-### Activate Environment
-
-Windows
-
-```bash
+# Windows
 venv\Scripts\activate
-```
 
-Linux / macOS
-
-```bash
+# Linux / macOS
 source venv/bin/activate
 ```
 
-### Install Dependencies
-
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run the Application
+### 4. Configure environment settings
+Update `config.py` (or a `.env` file, if used) with your database path and Gmail SMTP credentials for email notifications.
 
+### 5. Run the application
 ```bash
 python app.py
 ```
+
+The app will start locally. Open the URL shown in your terminal (typically `http://127.0.0.1:5000`) to access it.
 
 ---
 
 ## 🎯 Project Objectives
 
-- Automate attendance marking
-- Prevent proxy attendance
-- Improve attendance accuracy
-- Reduce manual work
-- Provide attendance analytics
-- Notify students automatically
-- Improve administrative efficiency
-
----
-
-## 👥 Contributors
-
-- **Abin Gomez**
-- **Faisal L**
-- **Sachu S Kumar**
+- ✅ Automate attendance marking with facial recognition
+- ✅ Prevent proxy/buddy attendance
+- ✅ Improve attendance accuracy and consistency
+- ✅ Reduce manual administrative workload
+- ✅ Provide actionable attendance analytics
+- ✅ Automatically notify students of absences and low attendance
+- ✅ Improve overall administrative efficiency
 
 ---
 
 ## 📜 License
 
-This project is developed for educational purposes as part of the **Bachelor of Computer Applications (BCA) Major Project**.
-
-Feel free to use and modify it for learning purposes.
+This project was developed for educational purposes as part of my **Bachelor of Computer Applications (BCA) Major Project**. It is free to use and modify for learning purposes.
 
 ---
 
-⭐ If you found this project useful, consider giving it a star!
+<div align="center">
+
+⭐ **If you found this project useful, consider giving it a star!** ⭐
+
+</div>
